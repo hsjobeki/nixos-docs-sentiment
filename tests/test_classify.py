@@ -71,6 +71,31 @@ class TestClassifier(unittest.TestCase):
         r = classify_record(mk("the documentation is fine"))
         self.assertEqual(r["scheme_version"], C.SCHEME_VERSION)
 
+    def test_negation_suppresses_positive(self):
+        # "not helpful" must not count as positive; "not documented" is negative.
+        r = classify_record(mk("The docs are not helpful and this is not documented."))
+        self.assertNotIn("helpful", r["cues"]["polarity"]["positive"])
+        self.assertLessEqual(r["polarity"], 0.0)
+
+    def test_negation_suppresses_feeling(self):
+        r = classify_record(mk("Honestly the manual is not frustrating at all."))
+        self.assertNotIn("frustration", r["feelings"])
+
+    def test_conditional_love_not_delight(self):
+        # A wish, not delight about the docs -> delight must not fire.
+        r = classify_record(mk("I would love better documentation for flakes."))
+        self.assertNotIn("delight", r["feelings"])
+
+    def test_superlative_not_delight_generic(self):
+        # "the best" on an alternative/aspiration must not read as delight.
+        r = classify_record(mk("The Arch wiki is the best way to learn; nixos docs lag."))
+        self.assertNotIn("delight", r["feelings"])
+
+    def test_genuine_delight_survives(self):
+        r = classify_record(mk("I love the nixos documentation, the examples are amazing."))
+        self.assertIn("delight", r["feelings"])
+
+
 
 if __name__ == "__main__":
     unittest.main()

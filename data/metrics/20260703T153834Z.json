@@ -2,91 +2,91 @@
   "by_aspect": {
     "accuracy": {
       "count": 104,
-      "mean_polarity": 0.1463,
-      "not_met": 34,
-      "not_met_rate": 0.3269
+      "mean_polarity": 0.107,
+      "not_met": 35,
+      "not_met_rate": 0.3365
     },
     "completeness": {
       "count": 75,
-      "mean_polarity": -0.2009,
+      "mean_polarity": -0.2273,
       "not_met": 39,
       "not_met_rate": 0.52
     },
     "discoverability": {
       "count": 10,
-      "mean_polarity": -0.1211,
-      "not_met": 5,
-      "not_met_rate": 0.5
+      "mean_polarity": -0.1417,
+      "not_met": 4,
+      "not_met_rate": 0.4
     },
     "examples": {
       "count": 213,
-      "mean_polarity": 0.1554,
-      "not_met": 61,
-      "not_met_rate": 0.2864
+      "mean_polarity": 0.1267,
+      "not_met": 57,
+      "not_met_rate": 0.2676
     },
     "explanation": {
       "count": 67,
-      "mean_polarity": 0.2424,
-      "not_met": 17,
-      "not_met_rate": 0.2537
+      "mean_polarity": 0.1545,
+      "not_met": 18,
+      "not_met_rate": 0.2687
     },
     "onboarding": {
       "count": 235,
-      "mean_polarity": 0.1876,
-      "not_met": 51,
-      "not_met_rate": 0.217
+      "mean_polarity": 0.1521,
+      "not_met": 55,
+      "not_met_rate": 0.234
     },
     "search": {
       "count": 80,
-      "mean_polarity": 0.191,
-      "not_met": 21,
-      "not_met_rate": 0.2625
+      "mean_polarity": 0.2235,
+      "not_met": 20,
+      "not_met_rate": 0.25
     },
     "structure": {
       "count": 443,
-      "mean_polarity": 0.174,
-      "not_met": 87,
-      "not_met_rate": 0.1964
+      "mean_polarity": 0.1432,
+      "not_met": 84,
+      "not_met_rate": 0.1896
     },
     "tooling": {
       "count": 165,
-      "mean_polarity": 0.1549,
+      "mean_polarity": 0.1119,
       "not_met": 48,
       "not_met_rate": 0.2909
     },
     "unofficial_reliance": {
       "count": 52,
-      "mean_polarity": 0.1461,
-      "not_met": 18,
-      "not_met_rate": 0.3462
+      "mean_polarity": 0.1138,
+      "not_met": 17,
+      "not_met_rate": 0.3269
     }
   },
   "by_expectation": {
     "exceeded": 1,
-    "met": 130,
-    "no_baseline": 75,
-    "not_met": 206,
-    "unclear": 626
+    "met": 104,
+    "no_baseline": 83,
+    "not_met": 201,
+    "unclear": 649
   },
   "by_feeling": {
-    "anxiety": 14,
-    "confusion": 97,
-    "delight": 182,
-    "frustration": 133,
-    "gratitude": 66,
-    "relief": 37,
-    "resignation": 30
+    "anxiety": 13,
+    "confusion": 90,
+    "delight": 133,
+    "frustration": 128,
+    "gratitude": 56,
+    "relief": 36,
+    "resignation": 25
   },
   "by_source": {
     "discourse": 143,
     "hackernews": 895
   },
   "dropped_non_relevant": 139,
-  "generated_at": "2026-07-03T15:39:37Z",
-  "mean_polarity": 0.1826,
-  "not_met_rate": 0.1985,
+  "generated_at": "2026-07-03T15:54:05Z",
+  "mean_polarity": 0.1578,
+  "not_met_rate": 0.1936,
   "run_id": "20260703T153834Z",
-  "scheme_version": "1.0.0",
+  "scheme_version": "1.1.0",
   "total_labeled": 1177,
   "total_relevant": 1038
 }

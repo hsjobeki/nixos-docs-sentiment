@@ -22,7 +22,7 @@ from __future__ import annotations
 
 import re
 
-SCHEME_VERSION = "1.0.0"
+SCHEME_VERSION = "1.1.0"
 
 # --- Axis 1: documentation aspect ------------------------------------------
 # What the sentiment is *about*. A record may match several aspects.
@@ -97,7 +97,8 @@ FEELING_TERMS: dict[str, list[str]] = {
     ],
     "delight": [
         "love", "amazing", "excellent", "fantastic", "awesome", "wonderful",
-        "impressed", "delight", "the best", "great docs", "brilliant",
+        "impressed", "delight", "great docs", "best docs", "best documentation",
+        "brilliant",
     ],
     "gratitude": [
         "thank", "thanks", "grateful", "appreciate", "kudos", "shout out",
@@ -144,6 +145,16 @@ DOC_TERMS: list[str] = [
     "reference", "options search", "handbook",
 ]
 
+# --- Negation / conditional suppressors ------------------------------------
+# A cue is ignored when one of these appears just before it in the same clause,
+# so "not helpful" is not counted as positive and "would love" (a wish) is not
+# counted as delight. Applied to feeling and polarity matching. This is a small
+# window heuristic, not full parsing: it fixes the common cases, not all of them.
+SUPPRESSOR_TERMS: list[str] = [
+    "not", "no", "never", "without", "hardly", "cannot", "lacks", "lack of",
+    "would", "wish", "hope", "should", "rather than", "instead of",
+]
+
 
 # Ambiguous common tokens matched whole-word (both boundaries) instead of as a
 # prefix, so "manual" does not catch "manually" and "hard" does not catch
@@ -179,6 +190,9 @@ EXCEEDED = _compile_list(EXCEEDED_CUES)
 MET = _compile_list(MET_CUES)
 NOT_MET = _compile_list(NOT_MET_CUES)
 DOC = _compile_list(DOC_TERMS)
+SUPPRESSORS = _compile_list(SUPPRESSOR_TERMS)
+# Contraction negators (isn't, wouldn't, don't, ...): match the "n't" tail.
+CONTRACTION_NEG = re.compile(r"n't\b")
 
 NEGATIVE_FEELINGS = ("frustration", "confusion", "anxiety", "resignation")
 POSITIVE_FEELINGS = ("relief", "delight", "gratitude")

@@ -101,6 +101,12 @@ can archive separately).
 - Lexicons live in `nixdoc_sentiment/categories.py` and are meant to be tuned.
   Ambiguous short tokens (e.g. `manual`, `hard`) are matched whole-word to avoid
   false positives like `manually` / `hardware`; most tokens use prefix stemming.
+- **Negation/conditional** is handled with a short preceding-window heuristic
+  (`SUPPRESSORS`): `not helpful` / `would love` do not fire. It is a window,
+  not a parser, so it misses cross-clause and comparative cases. In particular,
+  praise of an *alternative* ("the Arch wiki is amazing") can still read as a
+  positive feeling because the lexicon has no notion of *subject* — a small,
+  known residual (see the `cues` + `polarity` fields to spot it).
 - Sampling is query-driven (see `sources.py`), so it reflects what those queries
   surface, not a census. Keep the queries fixed between runs for comparable trends.
 - To validate/calibrate against ground truth, cross-check against the annual

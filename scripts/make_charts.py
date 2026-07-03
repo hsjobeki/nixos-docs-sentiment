@@ -57,7 +57,7 @@ def _nice_max(v: float, step: int = 10) -> int:
     return max(step, int(math.ceil(v * 100 / step) * step))
 
 
-def radar_svg(title: str, subtitle: str, axes: list[str],
+def radar_svg(title: str, meta: str, caption: str, axes: list[str],
               lex: dict, llm: dict) -> str:
     W, H = 740, 640
     cx, cy, R = 370, 330, 200
@@ -73,10 +73,12 @@ def radar_svg(title: str, subtitle: str, axes: list[str],
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
         f'width="{W}" height="{H}" font-family="Segoe UI,Helvetica,Arial,sans-serif">',
         f'<rect x="0" y="0" width="{W}" height="{H}" rx="14" fill="#ffffff"/>',
-        f'<text x="{cx}" y="34" text-anchor="middle" font-size="20" '
+        f'<text x="{cx}" y="32" text-anchor="middle" font-size="20" '
         f'font-weight="700" fill="{INK}">{_esc(title)}</text>',
-        f'<text x="{cx}" y="56" text-anchor="middle" font-size="12" '
-        f'fill="{MUTE}">{_esc(subtitle)}</text>',
+        f'<text x="{cx}" y="52" text-anchor="middle" font-size="13" '
+        f'fill="{INK}">{_esc(caption)}</text>',
+        f'<text x="{cx}" y="70" text-anchor="middle" font-size="11" '
+        f'fill="{MUTE}">{_esc(meta)}</text>',
     ]
 
     # concentric rings + ring % labels on the top axis
@@ -119,10 +121,10 @@ def radar_svg(title: str, subtitle: str, axes: list[str],
     return "\n".join(parts)
 
 
-def bar_svg(title: str, subtitle: str, cats: list[str],
+def bar_svg(title: str, meta: str, caption: str, cats: list[str],
             lex: dict, llm: dict) -> str:
-    W, H = 620, 360
-    left, right, top = 150, 40, 84
+    W, H = 640, 392
+    left, right, top = 160, 60, 108
     plot_w = W - left - right
     maxpct = _nice_max(max(max(lex.values()), max(llm.values())))
     rows = len(cats)
@@ -133,10 +135,12 @@ def bar_svg(title: str, subtitle: str, cats: list[str],
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
         f'width="{W}" height="{H}" font-family="Segoe UI,Helvetica,Arial,sans-serif">',
         f'<rect x="0" y="0" width="{W}" height="{H}" rx="14" fill="#ffffff"/>',
-        f'<text x="{W//2}" y="34" text-anchor="middle" font-size="20" '
+        f'<text x="{W//2}" y="30" text-anchor="middle" font-size="20" '
         f'font-weight="700" fill="{INK}">{_esc(title)}</text>',
-        f'<text x="{W//2}" y="56" text-anchor="middle" font-size="12" '
-        f'fill="{MUTE}">{_esc(subtitle)}</text>',
+        f'<text x="{W//2}" y="50" text-anchor="middle" font-size="13" '
+        f'fill="{INK}">{_esc(caption)}</text>',
+        f'<text x="{W//2}" y="68" text-anchor="middle" font-size="11" '
+        f'fill="{MUTE}">{_esc(meta)}</text>',
     ]
     # x gridlines
     for val in range(0, maxpct + 1, 10):
@@ -158,7 +162,7 @@ def bar_svg(title: str, subtitle: str, cats: list[str],
             parts.append(f'<text x="{left+w+5:.1f}" y="{y+bh-1:.1f}" font-size="10" '
                          f'fill="{MUTE}">{data[cat]*100:.0f}%</text>')
 
-    ly = 74
+    ly = 90
     parts.append(f'<rect x="{left}" y="{ly-12}" width="13" height="13" rx="3" fill="{LEX}"/>')
     parts.append(f'<text x="{left+18}" y="{ly}" font-size="12" fill="{INK}">lexicon</text>')
     parts.append(f'<rect x="{left+90}" y="{ly-12}" width="13" height="13" rx="3" fill="{LLM}"/>')
@@ -179,20 +183,23 @@ def main(argv: list[str]) -> int:
     blob = json.load(open(path))
     lex, llm = blob["lexicon"], blob["llm"]
     run = blob["run"]
-    sub = (f"snapshot {run}  |  lexicon n={lex['total_relevant']}  "
-           f"LLM n={llm['total_relevant']}  (share of doc-relevant records)")
+    meta = (f"N_lexicon={lex['total_relevant']}  ·  N_llm={llm['total_relevant']}"
+            f"  ·  snapshot {run}  (Hacker News + NixOS Discourse)")
 
     os.makedirs("docs/charts", exist_ok=True)
     outs = {
         "docs/charts/radar_feelings.svg": radar_svg(
-            "Emotional profile: lexicon vs LLM", sub, FEELING_AXES,
-            feeling_ratios(lex), feeling_ratios(llm)),
+            "Emotional profile: lexicon vs LLM", meta,
+            "% of doc-relevant records expressing each feeling (multi-label)",
+            FEELING_AXES, feeling_ratios(lex), feeling_ratios(llm)),
         "docs/charts/radar_aspects.svg": radar_svg(
-            "Documentation-aspect profile: lexicon vs LLM", sub, ASPECT_AXES,
-            aspect_ratios(lex), aspect_ratios(llm)),
+            "Documentation-aspect profile: lexicon vs LLM", meta,
+            "% of doc-relevant records that discuss each facet — higher = talked about more, not better",
+            ASPECT_AXES, aspect_ratios(lex), aspect_ratios(llm)),
         "docs/charts/bar_expectation.svg": bar_svg(
-            "Expectation outcomes: lexicon vs LLM", sub, EXPECT_ORDER,
-            expect_ratios(lex), expect_ratios(llm)),
+            "Expectation outcomes: lexicon vs LLM", meta,
+            "% of doc-relevant records by whether the docs met expectations",
+            EXPECT_ORDER, expect_ratios(lex), expect_ratios(llm)),
     }
     for p, svg in outs.items():
         with open(p, "w", encoding="utf-8") as f:

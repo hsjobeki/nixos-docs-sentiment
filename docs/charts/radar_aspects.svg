@@ -1,7 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 640" width="740" height="640" font-family="Segoe UI,Helvetica,Arial,sans-serif">
 <rect x="0" y="0" width="740" height="640" rx="14" fill="#ffffff"/>
-<text x="370" y="34" text-anchor="middle" font-size="20" font-weight="700" fill="#222222">Documentation-aspect profile: lexicon vs LLM</text>
-<text x="370" y="56" text-anchor="middle" font-size="12" fill="#666666">snapshot 20260703T153834Z  |  lexicon n=1038  LLM n=375  (share of doc-relevant records)</text>
+<text x="370" y="32" text-anchor="middle" font-size="20" font-weight="700" fill="#222222">Documentation-aspect profile: lexicon vs LLM</text>
+<text x="370" y="52" text-anchor="middle" font-size="13" fill="#222222">% of doc-relevant records that discuss each facet — higher = talked about more, not better</text>
+<text x="370" y="70" text-anchor="middle" font-size="11" fill="#666666">N_lexicon=1038  ·  N_llm=375  ·  snapshot 20260703T153834Z  (Hacker News + NixOS Discourse)</text>
 <polygon points="370.0,290.0 393.5,297.6 408.0,317.6 408.0,342.4 393.5,362.4 370.0,370.0 346.5,362.4 332.0,342.4 332.0,317.6 346.5,297.6" fill="none" stroke="#d0d0d0" stroke-width="1"/>
 <text x="374" y="288" font-size="9" fill="#666666">10%</text>
 <polygon points="370.0,250.0 417.0,265.3 446.1,305.3 446.1,354.7 417.0,394.7 370.0,410.0 323.0,394.7 293.9,354.7 293.9,305.3 323.0,265.3" fill="none" stroke="#d0d0d0" stroke-width="1"/>

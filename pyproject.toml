@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nixdoc-sentiment"
+version = "0.1.0"
+description = "Reproducible sentiment analysis of NixOS documentation feedback"
+requires-python = ">=3.11"
+# No runtime dependencies: standard library only, for maximal reproducibility.
+dependencies = []
+
+[project.scripts]
+nixdoc-sentiment = "nixdoc_sentiment.cli:main"
+
+[tool.setuptools]
+packages = ["nixdoc_sentiment"]

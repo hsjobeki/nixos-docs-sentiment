@@ -1,0 +1,13 @@
+# Bulky, time-varying, re-derivable-from-raw intermediates.
+data/raw/
+data/normalized/
+data/labeled/
+
+# Metrics (data/metrics/) are the durable time series and SHOULD be committed
+# so that `nixdoc-sentiment report` can show change across runs from git history.
+
+__pycache__/
+*.pyc
+.pytest_cache/
+result
+result-*

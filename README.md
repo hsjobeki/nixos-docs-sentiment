@@ -4,7 +4,7 @@ Reproducible sentiment analysis of what people feel and expect about the
 **NixOS documentation** — built to be re-run every few months so you can see how
 that sentiment changes over time.
 
-> **Status: community analysis — not an official NixOS report.** Produced by the
+> **Status: community analysis — not an official NixOS report.** Produced by python
 > `nixdoc-sentiment` tool; **not affiliated with or endorsed by the NixOS
 > Foundation or the documentation team.** The **findings and recommendations
 > below are LLM-assisted and directional, not ground truth**; they are meant to
@@ -60,6 +60,98 @@ method-vs-method comparison is fair even if absolute negativity is inflated. Ful
 method and rubric: [`docs/LLM_METHOD.md`](docs/LLM_METHOD.md). Charts are
 regenerated from `data/compare/<run>.json` via `python scripts/make_charts.py`
 (standard library only).
+
+## Excerpts (why the numbers look the way they do)
+
+All quotes below are verbatim from the snapshot; whitespace is normalized and
+each links to its source. They are complaint-skewed by construction (see the
+report card) — they show *what the pain sounds like*, not its prevalence.
+
+### Why keyword scoring breaks down
+
+The lexicon scores tokens, so it cannot tell *who* a word is about, whether it is
+negated, or whether it is even the word it thinks. Four real records the keyword
+classifier got backwards:
+
+> “I'd love NixOS more if they had any decent documentation. Everything seems
+> scattered around a dozen forums, a hundred old blog posts, and a thousand issues
+> of ‘this work on my machine (3 releases ago)’.”
+> — [HN 47480472](https://news.ycombinator.com/item?id=47480472)
+
+The word `love` fires, so the lexicon labels this **delight, polarity +1.00,
+expectation met**. It is a *conditional* — the reader would love NixOS *if the
+docs were decent*, i.e. they are not. Human/LLM reading: **frustration, not-met,
+−0.70**.
+
+> “The language is alright, the documentation and rate at which things change is
+> the issue. You wanted to do something and found a page about how to do it? Cool,
+> good chance it won't work anymore cause it changed.”
+> — [HN 42813383](https://news.ycombinator.com/item?id=42813383)
+
+The lexicon sees `good` (in “**good** chance it won't work”) and scores
+**+1.00**. It is a wrong-word-sense match on a sentence about staleness. LLM:
+**frustration + resignation, accuracy/completeness, −0.60**.
+
+> “Its documentation simply sucks. Once you grasp the idea, it feels almost
+> great.” — [HN 44786556](https://news.ycombinator.com/item?id=44786556)
+
+`sucks` is not in the polarity lexicon; `great` (describing *the idea*, not the
+docs) is — so this scores **+1.00**. LLM: **frustration, completeness, −0.50**.
+
+> “@ryantm I might be interested!”
+> — [Discourse, doc-team meeting thread](https://discourse.nixos.org/t/2023-03-14-documentation-team-meeting-notes-32/26351/3)
+
+No sentiment at all — but the thread title contains “documentation”, so the
+relevance gate keeps it. This is the over-inclusion that inflates the lexicon’s
+denominator from **375 → 1038**: forum logistics counted as documentation
+feedback.
+
+### What the complaints actually say
+
+The recurring problem, in users’ own words, grouped by the facet the LLM assigned.
+
+**Completeness — the thing needed wasn’t there.**
+
+> “Nix in general has some of the worst documentation I've ever encountered.”
+> — [HN 44900388](https://news.ycombinator.com/item?id=44900388)
+>
+> “I followed the official NixOS documentation … which is… scarce, to say the
+> least. But it also basically worked just like that.”
+> — [HN 45972851](https://news.ycombinator.com/item?id=45972851)
+
+**Accuracy / staleness — what is written no longer matches reality.**
+
+> “… the best we got is a mishmash of unofficial recourses and many of them are
+> out of date and/or focus on the packaging side which is terrible for
+> introduction.” [sic]
+> — [HN 48590064](https://news.ycombinator.com/item?id=48590064)
+>
+> “There are two NixOS wikis. … wiki.nixos.org claims that nixos.wiki is outdated
+> and unofficial. But both appear to receive updates, and which one wins the SEO
+> game is a coinflip whenever i google a nixos question.”
+> — [HN 47480587](https://news.ycombinator.com/item?id=47480587)
+
+**Onboarding / explanation — the *why* is missing.**
+
+> “I daily drive nixos and I have no idea what specializations are and reading
+> that wiki article didn't help. Am I just looking at a way to drop in chunks of
+> predefined config?” — [HN 48224637](https://news.ycombinator.com/item?id=48224637)
+>
+> “Nix is incredibly complicated to get into … the abysmal DSL and documentation.
+> Every company we’ve tried to introduce it in has failed to adopt it primarily
+> due to its incredibly steep learning curve.”
+> — [HN 41419662](https://news.ycombinator.com/item?id=41419662)
+
+**Unofficial reliance — falling back to source code and blogs.**
+
+> “I was looking through nix package code to sort out issues with nix on Hyper-V.
+> I really like Nix so far … but damn is the documentation ever shit tier.”
+> — [HN 36680565](https://news.ycombinator.com/item?id=36680565)
+
+These are exactly the records the lexicon tends to misread — note that two of them
+(`love`, `like`) contain positive tokens the keyword scorer would credit to the
+docs.
+
 
 ## Recommendations from this snapshot
 

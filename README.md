@@ -44,22 +44,26 @@ show each label's share of doc-relevant records.
 
 ![Expectation outcomes: lexicon vs LLM](docs/charts/bar_expectation.svg)
 
-**Takeaways.** (1) The lexicon's relevance gate over-includes ~3× — any mention
-of "docs/manual/learning" counts. (2) On genuine documentation feedback the
-sentiment **flips from mildly positive to net negative**; the LLM reads far more
-frustration and almost no delight, and attributes ~60% of feedback to *unmet*
-expectations. (3) **Completeness** (missing/undocumented things) is the dominant
-complaint the lexicon badly undercounts (7% → 48%).
+**Takeaways.**
 
-**Caveats.** The LLM is a different instrument, not ground truth, and is
-**non-deterministic** (re-running gives different numbers) — which is exactly why
-it lives outside the reproducible pipeline (`data/labeled_llm/`), and why the
-lexicon remains the instrument for *trend* tracking. Both methods share the same
-complaint-skewed corpus (people post about docs when annoyed), so the
-method-vs-method comparison is fair even if absolute negativity is inflated. Full
-method and rubric: [`docs/LLM_METHOD.md`](docs/LLM_METHOD.md). Charts are
-regenerated from `data/compare/<run>.json` via `python scripts/make_charts.py`
-(standard library only).
+- The lexicon's relevance gate over-includes ~3×: any mention of
+  "docs/manual/learning" counts.
+- On genuine feedback, sentiment **flips from mildly positive to net negative**.
+- The LLM reads far more frustration, almost no delight, and ~60% *unmet*
+  expectations.
+- **Completeness** (missing/undocumented things) is the dominant complaint — badly
+  undercounted by keywords (7% → 48%).
+
+**Caveats.**
+
+- The LLM is a different instrument, not ground truth.
+- It is **non-deterministic** — re-running gives different numbers.
+- So it stays out-of-band (`data/labeled_llm/`); the lexicon is the instrument for
+  *trends*.
+- Both methods read the same complaint-skewed corpus, so the method-vs-method
+  comparison is fair even if absolute negativity is inflated.
+- Method + rubric: [`docs/LLM_METHOD.md`](docs/LLM_METHOD.md). Charts:
+  `python scripts/make_charts.py` (stdlib only).
 
 ## Excerpts (why the numbers look the way they do)
 

@@ -71,11 +71,11 @@ All quotes below are verbatim from the snapshot; whitespace is normalized and
 each links to its source. They are complaint-skewed by construction (see the
 report card) — they show *what the pain sounds like*, not its prevalence.
 
-### Why keyword scoring breaks down
+### Why keyword-driven does not work
 
-The lexicon scores tokens, so it cannot tell *who* a word is about, whether it is
-negated, or whether it is even the word it thinks. Four real records the keyword
-classifier got backwards:
+The lexicon scores tokens. It cannot tell *who* a word is about, whether it is
+negated, or whether it is even the word it thinks. An LLM classifier can — it
+reads negation and irony. Four real records the keyword classifier got backwards:
 
 > “I'd love NixOS more if they had any decent documentation. Everything seems
 > scattered around a dozen forums, a hundred old blog posts, and a thousand issues

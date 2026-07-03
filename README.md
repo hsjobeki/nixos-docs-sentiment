@@ -23,6 +23,18 @@ meeting vs not meeting expectations" indicators.
 
 ## Findings: keyword lexicon vs LLM (snapshot 2026-07-03)
 
+> **Status: community analysis — not an official NixOS report.** Produced by the
+> `nixdoc-sentiment` tool; **not affiliated with or endorsed by the NixOS
+> Foundation or the documentation team.** The **findings and recommendations
+> below are LLM-assisted and directional, not ground truth**; they are intended
+> to point maintainers at where to look, not to quantify quality precisely.
+>
+> **Report card** · snapshot `20260703T153834Z` (collected 2026-07-03) · corpus:
+> Hacker News + NixOS Discourse, **complaint-skewed** (people post about docs when
+> annoyed) · lexicon N=1038, LLM N=375 · lexicon scheme `1.1.0`, LLM pass `llm-1`
+> (non-deterministic; see [Limitations](#limitations-read-before-trusting-numbers)).
+
+
 The reproducible pipeline uses a fast, transparent **keyword lexicon**. As a
 cross-check, the same 1177-record snapshot (`20260703T153834Z`, Hacker News +
 NixOS Discourse) was independently re-classified by an **LLM** (20 parallel
@@ -64,6 +76,12 @@ Charts are regenerated from `data/compare/<run>.json` via
 
 ## Recommendations from this snapshot
 
+> These recommendations are **derived from the LLM cross-check** (N=375), an
+> LLM-assisted read of a complaint-skewed corpus. They are **directional
+> prioritisation, not measurement** — use them to decide *where to look first*.
+> Where a facet's sample is small (n<40), the percentages are noisy; those cases
+> are flagged inline and should be read as "worth investigating," not settled.
+
 Ranking the ten documentation facets by the LLM cross-check (which weighs
 sentiment *target*, so praise of the Arch wiki is not counted as praise of the
 NixOS docs) surfaces three signals both methods agree on. Each is stated with
@@ -89,10 +107,12 @@ corpus. Missing coverage is mechanically detectable; make CI fail on it.
 ### 2. Fix staleness — `accuracy` is the sharpest quality defect
 
 *Pointer.* Accuracy is the **most negative** facet (**−0.48**) and the highest
-not-met rate (**87%**) in the LLM read. It travels with `unofficial_reliance`
-(77% not-met, −0.32): when the official page is wrong or outdated, users fall
-back to blogs and the Arch wiki, which is exactly the dependency the docs should
-remove.
+not-met rate (**87%**) in the LLM read — but on a **small sample (n=39)**, so
+treat the magnitude as directional. It travels with `unofficial_reliance`
+(n=39, 77% not-met, −0.32): when the official page is wrong or outdated, users
+fall back to blogs and the Arch wiki, which is exactly the dependency the docs
+should remove. Completeness (n=178) is the higher-confidence signal; accuracy is
+the sharper but thinner one.
 
 *Fix.* Make every code sample executable and test it in CI against the pinned
 nixpkgs the manual is built from (doctest-style), stamp each page with the
@@ -208,6 +228,16 @@ can archive separately).
   known residual (see the `cues` + `polarity` fields to spot it).
 - Sampling is query-driven (see `sources.py`), so it reflects what those queries
   surface, not a census. Keep the queries fixed between runs for comparable trends.
+- **The LLM cross-check is not reproducible or fully auditable.** It was a
+  one-off pass by LLM sub-agents applying the same taxonomy (doc-relevance,
+  aspect, feeling, expectation, polarity); re-running yields different numbers,
+  and the committed labels (`data/labeled_llm/<run>.jsonl`) carry no source text,
+  so auditing a single label requires re-joining the gitignored normalized data.
+  The lexicon — not the LLM — is the instrument of record for trends. Treat every
+  LLM figure in this report as directional.
+- Per-aspect counts are uneven: `structure`, `completeness`, `onboarding` have
+  100+ records, but `search` (17), `examples` (34), `accuracy` (39) and
+  `discoverability` (46) are small — their percentages are noisy point estimates.
 - To validate/calibrate against ground truth, cross-check against the annual
   [Nix Community Survey](https://github.com/GuillaumeDesforges/nix-survey) and the
   [nix.dev documentation survey](https://github.com/NixOS/nix.dev/blob/master/maintainers/documentation-survey.md).

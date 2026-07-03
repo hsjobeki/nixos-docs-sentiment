@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 640" width="740" height="640" font-family="Segoe UI,Helvetica,Arial,sans-serif">
+<rect x="0" y="0" width="740" height="640" rx="14" fill="#ffffff"/>
+<text x="370" y="34" text-anchor="middle" font-size="20" font-weight="700" fill="#222222">Emotional profile: lexicon vs LLM</text>
+<text x="370" y="56" text-anchor="middle" font-size="12" fill="#666666">snapshot 20260703T153834Z  |  lexicon n=1038  LLM n=375  (share of doc-relevant records)</text>
+<polygon points="370.0,290.0 401.3,305.1 409.0,338.9 387.4,366.0 352.6,366.0 331.0,338.9 338.7,305.1" fill="none" stroke="#d0d0d0" stroke-width="1"/>
+<text x="374" y="288" font-size="9" fill="#666666">10%</text>
+<polygon points="370.0,250.0 432.5,280.1 448.0,347.8 404.7,402.1 335.3,402.1 292.0,347.8 307.5,280.1" fill="none" stroke="#d0d0d0" stroke-width="1"/>
+<text x="374" y="248" font-size="9" fill="#666666">20%</text>
+<polygon points="370.0,210.0 463.8,255.2 487.0,356.7 422.1,438.1 317.9,438.1 253.0,356.7 276.2,255.2" fill="none" stroke="#d0d0d0" stroke-width="1"/>
+<text x="374" y="208" font-size="9" fill="#666666">30%</text>
+<polygon points="370.0,170.0 495.1,230.2 526.0,365.6 439.4,474.2 300.6,474.2 214.0,365.6 244.9,230.2" fill="none" stroke="#d0d0d0" stroke-width="1"/>
+<text x="374" y="168" font-size="9" fill="#666666">40%</text>
+<polygon points="370.0,130.0 526.4,205.3 565.0,374.5 456.8,510.2 283.2,510.2 175.0,374.5 213.6,205.3" fill="none" stroke="#d0d0d0" stroke-width="1"/>
+<text x="374" y="128" font-size="9" fill="#666666">50%</text>
+<line x1="370" y1="330" x2="370.0" y2="130.0" stroke="#d0d0d0" stroke-width="1"/>
+<text x="370.0" y="106.0" text-anchor="middle" font-size="12" fill="#222222">frustration</text>
+<line x1="370" y1="330" x2="526.4" y2="205.3" stroke="#d0d0d0" stroke-width="1"/>
+<text x="548.3" y="191.8" text-anchor="start" font-size="12" fill="#222222">confusion</text>
+<line x1="370" y1="330" x2="565.0" y2="374.5" stroke="#d0d0d0" stroke-width="1"/>
+<text x="592.3" y="384.7" text-anchor="start" font-size="12" fill="#222222">anxiety</text>
+<line x1="370" y1="330" x2="456.8" y2="510.2" stroke="#d0d0d0" stroke-width="1"/>
+<text x="468.9" y="539.4" text-anchor="start" font-size="12" fill="#222222">resignation</text>
+<line x1="370" y1="330" x2="283.2" y2="510.2" stroke="#d0d0d0" stroke-width="1"/>
+<text x="271.1" y="539.4" text-anchor="end" font-size="12" fill="#222222">relief</text>
+<line x1="370" y1="330" x2="175.0" y2="374.5" stroke="#d0d0d0" stroke-width="1"/>
+<text x="147.7" y="384.7" text-anchor="end" font-size="12" fill="#222222">delight</text>
+<line x1="370" y1="330" x2="213.6" y2="205.3" stroke="#d0d0d0" stroke-width="1"/>
+<text x="191.7" y="191.8" text-anchor="end" font-size="12" fill="#222222">gratitude</text>
+<polygon points="370.0,280.7 397.1,308.4 374.9,331.1 374.2,338.7 364.0,342.5 320.0,341.4 353.1,316.5" fill="#4E79A7" fill-opacity="0.18" stroke="#4E79A7" stroke-width="2.5"/>
+<circle cx="370.0" cy="280.7" r="3" fill="#4E79A7"/>
+<circle cx="397.1" cy="308.4" r="3" fill="#4E79A7"/>
+<circle cx="374.9" cy="331.1" r="3" fill="#4E79A7"/>
+<circle cx="374.2" cy="338.7" r="3" fill="#4E79A7"/>
+<circle cx="364.0" cy="342.5" r="3" fill="#4E79A7"/>
+<circle cx="320.0" cy="341.4" r="3" fill="#4E79A7"/>
+<circle cx="353.1" cy="316.5" r="3" fill="#4E79A7"/>
+<polygon points="370.0,164.7 395.0,310.0 375.2,331.2 383.0,356.9 365.4,339.6 360.6,332.1 361.7,323.3" fill="#E15759" fill-opacity="0.18" stroke="#E15759" stroke-width="2.5"/>
+<circle cx="370.0" cy="164.7" r="3" fill="#E15759"/>
+<circle cx="395.0" cy="310.0" r="3" fill="#E15759"/>
+<circle cx="375.2" cy="331.2" r="3" fill="#E15759"/>
+<circle cx="383.0" cy="356.9" r="3" fill="#E15759"/>
+<circle cx="365.4" cy="339.6" r="3" fill="#E15759"/>
+<circle cx="360.6" cy="332.1" r="3" fill="#E15759"/>
+<circle cx="361.7" cy="323.3" r="3" fill="#E15759"/>
+<rect x="174" y="604" width="14" height="14" rx="3" fill="#4E79A7" fill-opacity="0.6" stroke="#4E79A7"/>
+<text x="194" y="616" font-size="13" fill="#222222">lexicon (keyword)</text>
+<rect x="410" y="604" width="14" height="14" rx="3" fill="#E15759" fill-opacity="0.6" stroke="#E15759"/>
+<text x="430" y="616" font-size="13" fill="#222222">LLM (sub-agents)</text>
+</svg>

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 360" width="620" height="360" font-family="Segoe UI,Helvetica,Arial,sans-serif">
+<rect x="0" y="0" width="620" height="360" rx="14" fill="#ffffff"/>
+<text x="310" y="34" text-anchor="middle" font-size="20" font-weight="700" fill="#222222">Expectation outcomes: lexicon vs LLM</text>
+<text x="310" y="56" text-anchor="middle" font-size="12" fill="#666666">snapshot 20260703T153834Z  |  lexicon n=1038  LLM n=375  (share of doc-relevant records)</text>
+<line x1="150.0" y1="84" x2="150.0" y2="320" stroke="#d0d0d0" stroke-width="1"/>
+<text x="150.0" y="336" text-anchor="middle" font-size="10" fill="#666666">0%</text>
+<line x1="211.4" y1="84" x2="211.4" y2="320" stroke="#d0d0d0" stroke-width="1"/>
+<text x="211.4" y="336" text-anchor="middle" font-size="10" fill="#666666">10%</text>
+<line x1="272.9" y1="84" x2="272.9" y2="320" stroke="#d0d0d0" stroke-width="1"/>
+<text x="272.9" y="336" text-anchor="middle" font-size="10" fill="#666666">20%</text>
+<line x1="334.3" y1="84" x2="334.3" y2="320" stroke="#d0d0d0" stroke-width="1"/>
+<text x="334.3" y="336" text-anchor="middle" font-size="10" fill="#666666">30%</text>
+<line x1="395.7" y1="84" x2="395.7" y2="320" stroke="#d0d0d0" stroke-width="1"/>
+<text x="395.7" y="336" text-anchor="middle" font-size="10" fill="#666666">40%</text>
+<line x1="457.1" y1="84" x2="457.1" y2="320" stroke="#d0d0d0" stroke-width="1"/>
+<text x="457.1" y="336" text-anchor="middle" font-size="10" fill="#666666">50%</text>
+<line x1="518.6" y1="84" x2="518.6" y2="320" stroke="#d0d0d0" stroke-width="1"/>
+<text x="518.6" y="336" text-anchor="middle" font-size="10" fill="#666666">60%</text>
+<line x1="580.0" y1="84" x2="580.0" y2="320" stroke="#d0d0d0" stroke-width="1"/>
+<text x="580.0" y="336" text-anchor="middle" font-size="10" fill="#666666">70%</text>
+<text x="140" y="111.6" text-anchor="end" font-size="13" fill="#222222">not_met</text>
+<rect x="150" y="91.5" width="119.0" height="15.1" rx="2" fill="#4E79A7"/>
+<text x="274.0" y="105.6" font-size="10" fill="#666666">19%</text>
+<rect x="150" y="108.6" width="368.6" height="15.1" rx="2" fill="#E15759"/>
+<text x="523.6" y="122.7" font-size="10" fill="#666666">60%</text>
+<text x="140" y="158.8" text-anchor="end" font-size="13" fill="#222222">unclear</text>
+<rect x="150" y="138.7" width="384.1" height="15.1" rx="2" fill="#4E79A7"/>
+<text x="539.1" y="152.8" font-size="10" fill="#666666">63%</text>
+<rect x="150" y="155.8" width="152.3" height="15.1" rx="2" fill="#E15759"/>
+<text x="307.3" y="169.9" font-size="10" fill="#666666">25%</text>
+<text x="140" y="206.0" text-anchor="end" font-size="13" fill="#222222">met</text>
+<rect x="150" y="185.9" width="61.5" height="15.1" rx="2" fill="#4E79A7"/>
+<text x="216.5" y="200.0" font-size="10" fill="#666666">10%</text>
+<rect x="150" y="203.0" width="80.3" height="15.1" rx="2" fill="#E15759"/>
+<text x="235.3" y="217.1" font-size="10" fill="#666666">13%</text>
+<text x="140" y="253.2" text-anchor="end" font-size="13" fill="#222222">no_baseline</text>
+<rect x="150" y="233.1" width="49.1" height="15.1" rx="2" fill="#4E79A7"/>
+<text x="204.1" y="247.2" font-size="10" fill="#666666">8%</text>
+<rect x="150" y="250.2" width="3.3" height="15.1" rx="2" fill="#E15759"/>
+<text x="158.3" y="264.3" font-size="10" fill="#666666">1%</text>
+<text x="140" y="300.4" text-anchor="end" font-size="13" fill="#222222">exceeded</text>
+<rect x="150" y="280.3" width="0.6" height="15.1" rx="2" fill="#4E79A7"/>
+<text x="155.6" y="294.4" font-size="10" fill="#666666">0%</text>
+<rect x="150" y="297.4" width="9.8" height="15.1" rx="2" fill="#E15759"/>
+<text x="164.8" y="311.5" font-size="10" fill="#666666">2%</text>
+<rect x="150" y="62" width="13" height="13" rx="3" fill="#4E79A7"/>
+<text x="168" y="74" font-size="12" fill="#222222">lexicon</text>
+<rect x="240" y="62" width="13" height="13" rx="3" fill="#E15759"/>
+<text x="258" y="74" font-size="12" fill="#222222">LLM</text>
+</svg>

@@ -1,0 +1,187 @@
+{
+  "lexicon": {
+    "by_aspect": {
+      "accuracy": {
+        "count": 104,
+        "mean_polarity": 0.107,
+        "not_met": 35,
+        "not_met_rate": 0.3365
+      },
+      "completeness": {
+        "count": 75,
+        "mean_polarity": -0.2273,
+        "not_met": 39,
+        "not_met_rate": 0.52
+      },
+      "discoverability": {
+        "count": 10,
+        "mean_polarity": -0.1417,
+        "not_met": 4,
+        "not_met_rate": 0.4
+      },
+      "examples": {
+        "count": 213,
+        "mean_polarity": 0.1267,
+        "not_met": 57,
+        "not_met_rate": 0.2676
+      },
+      "explanation": {
+        "count": 67,
+        "mean_polarity": 0.1545,
+        "not_met": 18,
+        "not_met_rate": 0.2687
+      },
+      "onboarding": {
+        "count": 235,
+        "mean_polarity": 0.1521,
+        "not_met": 55,
+        "not_met_rate": 0.234
+      },
+      "search": {
+        "count": 80,
+        "mean_polarity": 0.2235,
+        "not_met": 20,
+        "not_met_rate": 0.25
+      },
+      "structure": {
+        "count": 443,
+        "mean_polarity": 0.1432,
+        "not_met": 84,
+        "not_met_rate": 0.1896
+      },
+      "tooling": {
+        "count": 165,
+        "mean_polarity": 0.1119,
+        "not_met": 48,
+        "not_met_rate": 0.2909
+      },
+      "unofficial_reliance": {
+        "count": 52,
+        "mean_polarity": 0.1138,
+        "not_met": 17,
+        "not_met_rate": 0.3269
+      }
+    },
+    "by_expectation": {
+      "exceeded": 1,
+      "met": 104,
+      "no_baseline": 83,
+      "not_met": 201,
+      "unclear": 649
+    },
+    "by_feeling": {
+      "anxiety": 13,
+      "confusion": 90,
+      "delight": 133,
+      "frustration": 128,
+      "gratitude": 56,
+      "relief": 36,
+      "resignation": 25
+    },
+    "by_source": {
+      "discourse": 143,
+      "hackernews": 895
+    },
+    "dropped_non_relevant": 139,
+    "generated_at": "2026-07-03T16:13:23Z",
+    "mean_polarity": 0.1578,
+    "not_met_rate": 0.1936,
+    "run_id": "20260703T153834Z",
+    "scheme_version": "1.1.0",
+    "total_labeled": 1177,
+    "total_relevant": 1038
+  },
+  "llm": {
+    "by_aspect": {
+      "accuracy": {
+        "count": 39,
+        "mean_polarity": -0.4769,
+        "not_met": 34,
+        "not_met_rate": 0.8718
+      },
+      "completeness": {
+        "count": 178,
+        "mean_polarity": -0.3553,
+        "not_met": 143,
+        "not_met_rate": 0.8034
+      },
+      "discoverability": {
+        "count": 46,
+        "mean_polarity": -0.1935,
+        "not_met": 25,
+        "not_met_rate": 0.5435
+      },
+      "examples": {
+        "count": 34,
+        "mean_polarity": -0.1971,
+        "not_met": 22,
+        "not_met_rate": 0.6471
+      },
+      "explanation": {
+        "count": 61,
+        "mean_polarity": -0.3607,
+        "not_met": 45,
+        "not_met_rate": 0.7377
+      },
+      "onboarding": {
+        "count": 105,
+        "mean_polarity": -0.291,
+        "not_met": 75,
+        "not_met_rate": 0.7143
+      },
+      "search": {
+        "count": 17,
+        "mean_polarity": -0.2059,
+        "not_met": 8,
+        "not_met_rate": 0.4706
+      },
+      "structure": {
+        "count": 127,
+        "mean_polarity": -0.1945,
+        "not_met": 61,
+        "not_met_rate": 0.4803
+      },
+      "tooling": {
+        "count": 88,
+        "mean_polarity": -0.2398,
+        "not_met": 52,
+        "not_met_rate": 0.5909
+      },
+      "unofficial_reliance": {
+        "count": 39,
+        "mean_polarity": -0.3154,
+        "not_met": 30,
+        "not_met_rate": 0.7692
+      }
+    },
+    "by_expectation": {
+      "exceeded": 6,
+      "met": 49,
+      "no_baseline": 2,
+      "not_met": 225,
+      "unclear": 93
+    },
+    "by_feeling": {
+      "anxiety": 5,
+      "confusion": 30,
+      "delight": 9,
+      "frustration": 155,
+      "gratitude": 10,
+      "relief": 10,
+      "resignation": 28
+    },
+    "by_source": {
+      "discourse": 86,
+      "hackernews": 289
+    },
+    "dropped_non_relevant": 802,
+    "generated_at": "2026-07-03T16:13:23Z",
+    "mean_polarity": -0.2372,
+    "not_met_rate": 0.6,
+    "run_id": "20260703T153834Z",
+    "scheme_version": "llm-1",
+    "total_labeled": 1177,
+    "total_relevant": 375
+  },
+  "run": "20260703T153834Z"
+}

@@ -21,6 +21,47 @@ orthogonal axes plus a signed polarity score:
 Per-aspect `mean_polarity` and `not_met_rate` are the headline "where are we
 meeting vs not meeting expectations" indicators.
 
+## Findings: keyword lexicon vs LLM (snapshot 2026-07-03)
+
+The reproducible pipeline uses a fast, transparent **keyword lexicon**. As a
+cross-check, the same 1177-record snapshot (`20260703T153834Z`, Hacker News +
+NixOS Discourse) was independently re-classified by an **LLM** (20 parallel
+sub-agents) that can weigh negation, sarcasm, and — critically — *sentiment
+target* (praise of an alternative like the Arch wiki is not delight about the
+NixOS docs). The charts below show each label's share of doc-relevant records.
+
+| indicator | lexicon | LLM |
+| --- | --- | --- |
+| records judged doc-relevant | 1038 | **375** |
+| mean polarity | **+0.16** | **−0.24** |
+| not-met rate | 19% | **60%** |
+| delight (share) | 12.8% | **2.4%** |
+| frustration (share) | 12.3% | **41.3%** |
+| polarity sign agreement (shared-relevant records) | — | **35%** |
+
+![Emotional profile: lexicon vs LLM](docs/charts/radar_feelings.svg)
+
+![Documentation-aspect profile: lexicon vs LLM](docs/charts/radar_aspects.svg)
+
+![Expectation outcomes: lexicon vs LLM](docs/charts/bar_expectation.svg)
+
+**Takeaways.** (1) The lexicon's relevance gate over-includes ~3× — any mention
+of "docs/manual/learning" counts. (2) On genuine documentation feedback the
+sentiment **flips from mildly positive to net negative**; the LLM reads far more
+frustration and almost no delight, and attributes ~60% of feedback to *unmet*
+expectations. (3) **Completeness** (missing/undocumented things) is the dominant
+complaint the lexicon badly undercounts (7% → 48%).
+
+**Caveats.** The LLM is a different instrument, not ground truth, and is
+**non-deterministic** (re-running gives different numbers) — which is exactly why
+it lives outside the reproducible pipeline (`data/labeled_llm/`), and why the
+lexicon remains the instrument for *trend* tracking. Both methods share the same
+complaint-skewed corpus (people post about docs when annoyed), so the
+method-vs-method comparison is fair even if absolute negativity is inflated.
+Charts are regenerated from `data/compare/<run>.json` via
+`python scripts/make_charts.py` (standard library only).
+
+
 ## Sources
 
 | Source | Auth | Notes |
@@ -128,4 +169,9 @@ nixdoc_sentiment/
   report.py       cross-run trend view
   cli.py          collect / classify / aggregate / run / report
 tests/            offline classifier tests (run during `nix build`)
+scripts/
+  make_charts.py  render the comparison SVGs (stdlib only)
+docs/charts/      committed SVG charts shown above
+data/compare/     lexicon-vs-LLM aggregates (chart source)
+data/labeled_llm/ per-record LLM labels (non-reproducible cross-check)
 ```

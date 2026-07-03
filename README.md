@@ -62,6 +62,64 @@ Charts are regenerated from `data/compare/<run>.json` via
 `python scripts/make_charts.py` (standard library only).
 
 
+## Recommendations from this snapshot
+
+Ranking the ten documentation facets by the LLM cross-check (which weighs
+sentiment *target*, so praise of the Arch wiki is not counted as praise of the
+NixOS docs) surfaces three signals both methods agree on. Each is stated with
+the metric that should move in the **next** snapshot if the fix lands — that is
+the whole point of freezing the lexicon: the recommendations are falsifiable.
+
+### 1. Close coverage gaps — `completeness` is the dominant complaint
+
+*Pointer.* Completeness is the single most-discussed facet in the LLM read
+(178 of 375 doc-relevant records, ~47%), mean polarity **−0.36**, **80%**
+not-met. It is also the lexicon's worst not-met aspect (**52%**), so both
+instruments agree despite disagreeing on everything else. People are not saying
+the docs are badly written — they are saying the thing they needed *was not
+there*.
+
+*Fix.* Treat reference completeness as a build gate: assert every NixOS module
+option and CLI flag has a description **and** at least one runnable example, and
+author task-oriented "how do I X" recipes for the highest-frequency gaps in the
+corpus. Missing coverage is mechanically detectable; make CI fail on it.
+
+*Verify next run.* `completeness` `not_met_rate` and its share of records fall.
+
+### 2. Fix staleness — `accuracy` is the sharpest quality defect
+
+*Pointer.* Accuracy is the **most negative** facet (**−0.48**) and the highest
+not-met rate (**87%**) in the LLM read. It travels with `unofficial_reliance`
+(77% not-met, −0.32): when the official page is wrong or outdated, users fall
+back to blogs and the Arch wiki, which is exactly the dependency the docs should
+remove.
+
+*Fix.* Make every code sample executable and test it in CI against the pinned
+nixpkgs the manual is built from (doctest-style), stamp each page with the
+revision it was validated at, and run a staleness bot that flags pages untouched
+across N releases. Correctness regressions then surface at build time, not on
+Hacker News.
+
+*Verify next run.* `accuracy` mean polarity and `unofficial_reliance` share
+improve.
+
+### 3. Build a conceptual onboarding path — `onboarding` + `explanation`
+
+*Pointer.* Onboarding (105 records, **71%** not-met, −0.29) and explanation
+(61 records, **74%** not-met, −0.36) form a cluster: newcomers cannot find the
+*why* (derivations, the store, channels-vs-flakes), and frustration is the
+dominant feeling overall (**41%** of LLM records). Reference material exists;
+the guided path from zero does not.
+
+*Fix.* Maintain a single linear "learn Nix concepts" track linked from the top
+of the manual, pairing each concept with a minimal runnable example, so the
+canonical first-hour path is official rather than a scattered set of third-party
+tutorials.
+
+*Verify next run.* `onboarding` / `explanation` not-met rates and the
+`frustration` share fall.
+
+
 ## Sources
 
 | Source | Auth | Notes |

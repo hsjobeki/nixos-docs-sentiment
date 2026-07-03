@@ -1,10 +1,15 @@
 # nixdoc-sentiment
 
-Reproducible sentiment analysis of what people feel and expect about the
-**NixOS documentation** — built to be re-run every few months so you can see how
-that sentiment changes over time.
+LLM-driven sentiment analysis of what people feel about the **NixOS
+documentation**.
 
-> **Status: community analysis — not an official NixOS report.** Produced by python
+An LLM reads public feedback and draws the picture.
+A keyword approach was tried too, and is overlaid on the charts for comparison.
+This doc explains why the keyword approach does not work.
+
+Built to be re-run every few months, so you can watch sentiment change over time.
+
+> **Status: community analysis — not an official NixOS report.** Produced by the
 > `nixdoc-sentiment` tool; **not affiliated with or endorsed by the NixOS
 > Foundation or the documentation team.** The **findings and recommendations
 > below are LLM-assisted and directional, not ground truth**; they are meant to
@@ -22,12 +27,16 @@ that sentiment changes over time.
 ## Findings: keyword lexicon vs LLM (snapshot 2026-07-03)
 
 The reproducible pipeline scores feedback with a fast, transparent **keyword
-lexicon**. As a cross-check, the same 1177-record snapshot (`20260703T153834Z`,
-Hacker News + NixOS Discourse) was independently re-classified by an **LLM**
-(20 parallel sub-agents) that can weigh negation, sarcasm, and — critically —
-*sentiment target*: praise of an alternative (the *unofficial* NixOS Wiki or a
-third-party blog) is not delight about the **official** docs. The charts below
-show each label's share of doc-relevant records.
+lexicon**.
+
+As a cross-check, the same 1177-record snapshot (`20260703T153834Z`, Hacker News
++ NixOS Discourse) was re-classified by an **LLM** (20 parallel sub-agents).
+
+It can weigh negation, sarcasm, and — critically — *sentiment target*.
+Praise of an alternative (the *unofficial* NixOS Wiki or a third-party blog) is
+not delight about the **official** docs.
+
+The charts show each label's share of doc-relevant records.
 
 | indicator | lexicon | LLM |
 | --- | --- | --- |
@@ -67,15 +76,23 @@ show each label's share of doc-relevant records.
 
 ## Excerpts (why the numbers look the way they do)
 
-All quotes below are verbatim from the snapshot; whitespace is normalized and
-each links to its source. They are complaint-skewed by construction (see the
-report card) — they show *what the pain sounds like*, not its prevalence.
+All quotes below are verbatim from the snapshot. Whitespace is normalized.
+Each links to its source.
+
+They are complaint-skewed by construction (see the report card).
+They show *what the pain sounds like*, not its prevalence.
 
 ### Why keyword-driven does not work
 
-The lexicon scores tokens. It cannot tell *who* a word is about, whether it is
-negated, or whether it is even the word it thinks. An LLM classifier can — it
-reads negation and irony. Four real records the keyword classifier got backwards:
+The lexicon scores tokens. It cannot tell:
+
+- *who* a word is about,
+- whether the word is negated,
+- whether it is even the word it thinks it is.
+
+An LLM classifier can — it reads negation and irony.
+
+Four real records the keyword classifier got backwards:
 
 > “I'd love NixOS more if they had any decent documentation. Everything seems
 > scattered around a dozen forums, a hundred old blog posts, and a thousand issues
@@ -165,43 +182,57 @@ docs.
 > Where a facet's sample is small (n<40), the percentages are noisy; those cases
 > are flagged inline and should be read as "worth investigating," not settled.
 
-Ranking the ten documentation facets by the LLM cross-check (which weighs
-sentiment *target*, so praise of the unofficial wiki is not counted as praise of
-the official docs) surfaces three signals both methods agree on. Each is stated
-with the metric that should move in the **next** snapshot if the fix lands — that
-is the whole point of freezing the lexicon: the recommendations are falsifiable.
+The LLM cross-check weighs sentiment *target*: praise of the unofficial wiki is
+not counted as praise of the official docs.
+
+Ranking the ten facets by that read surfaces three signals both methods agree on.
+
+Each recommendation names the metric that should move in the **next** snapshot if
+the fix lands. That is the point of freezing the lexicon: the recommendations are
+falsifiable.
 
 ### 1. Close coverage gaps — `completeness` is the dominant complaint
 
-*Pointer.* Completeness is the single most-discussed facet in the LLM read
-(178 of 375 doc-relevant records, ~47%), mean polarity **−0.36**, **80%**
-not-met. It is also the lexicon's worst not-met aspect (**52%**), so both
-instruments agree despite disagreeing on everything else. People are not saying
-the docs are badly written — they are saying the thing they needed *was not
-there*.
+*Pointer.* Completeness is the most-discussed facet in the LLM read: 178 of 375
+records (~47%), mean polarity **−0.36**, **80%** not-met.
 
-*Fix.* Treat reference completeness as a build gate: assert every NixOS module
-option and CLI flag has a description **and** at least one runnable example, and
-author task-oriented "how do I X" recipes for the highest-frequency gaps in the
-corpus. Missing coverage is mechanically detectable; make CI fail on it.
+It is also the lexicon's worst not-met aspect (**52%**), so both instruments
+agree despite disagreeing on everything else.
+
+People are not saying the docs are badly written. They are saying the thing they
+needed *was not there*.
+
+*Fix.* Treat reference completeness as a build gate.
+
+- Assert every module option and CLI flag has a description and one runnable
+  example.
+- Author task-oriented "how do I X" recipes for the highest-frequency gaps.
+
+Missing coverage is mechanically detectable. Make CI fail on it.
 
 *Verify next run.* `completeness` `not_met_rate` and its share of records fall.
 
 ### 2. Fix staleness — `accuracy` is the sharpest quality defect
 
 *Pointer.* Accuracy is the **most negative** facet (**−0.48**) and the highest
-not-met rate (**87%**) in the LLM read — but on a **small sample (n=39)**, so
-treat the magnitude as directional. It travels with `unofficial_reliance`
-(n=39, 77% not-met, −0.32): when the official page is wrong or outdated, users
-fall back to the community NixOS Wiki and blog posts, which is exactly the
-dependency the official docs should remove. Completeness (n=178) is the
-higher-confidence signal; accuracy is the sharper but thinner one.
+not-met rate (**87%**) — but on a **small sample (n=39)**, so treat the magnitude
+as directional.
 
-*Fix.* Make every code sample executable and test it in CI against the pinned
-nixpkgs the manual is built from (doctest-style), stamp each page with the
-revision it was validated at, and run a staleness bot that flags pages untouched
-across N releases. Correctness regressions then surface at build time, not on
-Hacker News.
+It travels with `unofficial_reliance` (n=39, 77% not-met, −0.32): when the
+official page is wrong or outdated, users fall back to the community NixOS Wiki
+and blog posts.
+
+Completeness (n=178) is the higher-confidence signal. Accuracy is the sharper but
+thinner one.
+
+*Fix.*
+
+- Make every code sample executable, and test it in CI against the pinned nixpkgs
+  the manual builds from (doctest-style).
+- Stamp each page with the revision it was validated at.
+- Run a staleness bot that flags pages untouched across N releases.
+
+Correctness regressions then surface at build time, not on Hacker News.
 
 *Verify next run.* `accuracy` mean polarity and `unofficial_reliance` share
 improve.
@@ -209,14 +240,18 @@ improve.
 ### 3. Build a conceptual onboarding path — `onboarding` + `explanation`
 
 *Pointer.* Onboarding (105 records, **71%** not-met, −0.29) and explanation
-(61 records, **74%** not-met, −0.36) form a cluster: newcomers cannot find the
-*why* (derivations, the store, channels-vs-flakes), and frustration is the
-dominant feeling overall (**41%** of LLM records). Reference material exists;
-the guided path from zero does not.
+(61 records, **74%** not-met, −0.36) form a cluster.
 
-*Fix.* Maintain a single linear "learn Nix concepts" track linked from the top
-of the manual, pairing each concept with a minimal runnable example, so the
-canonical first-hour path is official rather than a scattered set of third-party
+Newcomers cannot find the *why*: derivations, the store, channels-vs-flakes.
+Frustration is the dominant feeling overall (**41%** of LLM records).
+
+Reference material exists. The guided path from zero does not.
+
+*Fix.* Maintain a single linear "learn Nix concepts" track, linked from the top
+of the manual.
+
+Pair each concept with a minimal runnable example.
+Make the canonical first-hour path official, not a scatter of third-party
 tutorials.
 
 *Verify next run.* `onboarding` / `explanation` not-met rates and the
@@ -268,11 +303,13 @@ always completes with whatever was collected.
   later stage is a pure function of a snapshot, so re-classifying yesterday's
   raw data gives byte-identical output.
 - **Instrument**: classification is a **transparent, versioned lexicon**, not an
-  LLM. An LLM drifts between runs (model updates, non-determinism), which would
-  make trends meaningless; a lexicon does not. Every label records exactly which
-  cue words fired (`cues` field). When you change the scheme, bump
-  `SCHEME_VERSION` in `nixdoc_sentiment/categories.py`; it is stamped into every
-  labeled row and metrics file so you can tell which runs are comparable.
+  LLM.
+  - An LLM drifts between runs (model updates, non-determinism); a lexicon does
+    not. That keeps trends meaningful.
+  - Every label records which cue words fired (`cues` field).
+  - Changing the scheme? Bump `SCHEME_VERSION` in
+    `nixdoc_sentiment/categories.py`. It is stamped into every labeled row and
+    metrics file, so you can tell which runs are comparable.
 - **Time series**: `data/metrics/<run>.json` files accumulate and are committed
   to git. `report` reads them all to show change across runs.
 
@@ -340,21 +377,22 @@ python scripts/make_charts.py          # regenerate the comparison SVGs above
 - Lexicons live in `nixdoc_sentiment/categories.py` and are meant to be tuned.
   Ambiguous short tokens (e.g. `manual`, `hard`) are matched whole-word to avoid
   false positives like `manually` / `hardware`; most tokens use prefix stemming.
-- **Negation/conditional** is handled with a short preceding-window heuristic
-  (`SUPPRESSORS`): `not helpful` / `would love` do not fire. It is a window,
-  not a parser, so it misses cross-clause and comparative cases. In particular,
-  praise of an *alternative* ("the NixOS Wiki saved me, the manual didn't") can
-  still read as a positive feeling because the lexicon has no notion of
-  *subject* — a small, known residual (see the `cues` + `polarity` fields to spot
-  it). The LLM cross-check exists partly to correct for this.
+- **Negation/conditional** uses a short preceding-window heuristic
+  (`SUPPRESSORS`): `not helpful` / `would love` do not fire.
+  - It is a window, not a parser, so it misses cross-clause and comparative
+    cases.
+  - Praise of an alternative ("the NixOS Wiki saved me, the manual didn't") can
+    still read as positive: the lexicon has no notion of *subject*.
+  - A small, known residual. The LLM cross-check exists partly to correct for it.
 - Sampling is query-driven (see `sources.py`), so it reflects what those queries
   surface, not a census. Keep the queries fixed between runs for comparable trends.
 - **The LLM cross-check is not reproducible.** It was a one-off pass by LLM
-  sub-agents applying the same taxonomy; re-running yields different numbers, so
-  the lexicon — not the LLM — is the instrument of record for trends. It *is*
-  auditable: `python scripts/audit_llm.py` writes
-  `data/labeled_llm/<run>.audit.jsonl`, pairing every judgment with the verbatim
-  text it was made from. Treat every LLM figure in this report as directional.
+  sub-agents applying the same taxonomy. Re-running yields different numbers.
+  - So the lexicon — not the LLM — is the instrument of record for trends.
+  - It *is* auditable: `python scripts/audit_llm.py` writes
+    `data/labeled_llm/<run>.audit.jsonl`, pairing each judgment with its verbatim
+    text.
+  - Treat every LLM figure here as directional.
 - Per-aspect counts are uneven: `structure`, `completeness`, `onboarding` have
   100+ records, but `search` (17), `examples` (34), `accuracy` (39) and
   `discoverability` (46) are small — their percentages are noisy point estimates.
